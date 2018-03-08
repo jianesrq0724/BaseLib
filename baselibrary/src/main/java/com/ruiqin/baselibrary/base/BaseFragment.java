@@ -88,8 +88,11 @@ public abstract class BaseFragment<V, T extends BasePresenter<V>> extends Fragme
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPresenter = createPresenter();
-        mPresenter.attachView((V) mContext);
-        Log.e("TAG", "当前页面：" + getClass().getSimpleName());
+
+        if (mPresenter != null) {
+            mPresenter.attachView((V) mContext);
+            Log.e("TAG", "当前页面：" + getClass().getSimpleName());
+        }
     }
 
     @Override

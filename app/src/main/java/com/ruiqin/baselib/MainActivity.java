@@ -1,13 +1,32 @@
 package com.ruiqin.baselib;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import com.ruiqin.baselibrary.base.BaseActivity;
+import com.ruiqin.baselibrary.base.BasePresenter;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initView() {
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected BasePresenter createPresenter() {
+        return null;
+    }
+
+    @Override
+    protected int getFragmentContentId() {
+        return 0;
     }
 }
