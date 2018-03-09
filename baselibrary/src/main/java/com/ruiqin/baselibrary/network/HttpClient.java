@@ -1,9 +1,10 @@
 package com.ruiqin.baselibrary.network;
 
-import com.blankj.utilcode.util.AppUtils;
-import com.blankj.utilcode.util.StringUtils;
+import android.text.TextUtils;
+
 import com.ruiqin.baselibrary.constant.NetWorkState;
 import com.ruiqin.baselibrary.network.entity.HttpResult;
+import com.ruiqin.baselibrary.util.AppUtils;
 import com.ruiqin.baselibrary.util.ToastUtils;
 
 import java.io.IOException;
@@ -64,7 +65,7 @@ public class HttpClient {
             // TODO: 2018/3/8
 //            String token = DataWareHouse.getToken();
             String token = "test";
-            if (!StringUtils.isEmpty(token)) {
+            if (!TextUtils.isEmpty(token)) {
                 builder.header("access-token", token);
             }
             builder.header("platform", PLATFORM);

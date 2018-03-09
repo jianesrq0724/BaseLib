@@ -25,7 +25,7 @@ public class Utils {
      */
     public static void init(Context context) {
         Utils.sContext = context.getApplicationContext();
-        initCrashHandler(context);
+//        initCrashHandler(context);
         //x5内核初始化接口
         initX5Environment(context);
     }

@@ -27,7 +27,8 @@ import butterknife.Unbinder;
 /**
  * Created by ruiqin.shen.
  * 类说明：所有的Activity的基类
- * 在onCreate调用present的setVM方法，将View和Model关联起来
+ * 在onCreate调用attachView，P获取V的索引
+ * 在onCreate中createPresenter，V获取P的索引
  */
 public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCompatActivity implements ILoading {
     public T mPresenter;
@@ -46,12 +47,14 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //加载main的布局
+        setContentView(R.layout.activity_base);
+
         mPresenter = createPresenter();
         if (mPresenter != null) {
             mPresenter.attachView((V) this);
         }
-        //加载main的布局
-        setContentView(R.layout.activity_base);
+
         //加载子类的布局
         setContentView(getLayoutId());
         if (canAddCollector()) {
@@ -141,7 +144,9 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends AppCom
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mPresenter.detachView();
+        if (mPresenter != null) {
+            mPresenter.detachView();
+        }
         if (mLoadingDialog != null) {
             if (mLoadingDialog.isShowing()) {
                 mLoadingDialog.dismiss();

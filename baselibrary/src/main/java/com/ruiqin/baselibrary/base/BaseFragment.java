@@ -16,15 +16,19 @@ import butterknife.Unbinder;
 /**
  * Created by ruiqin.shen.
  * 类说明：所有的Fragment的基类，创建的Fragment都继承BaseFragment
- * 在onCreateView调用present的setVM方法，将View和Model关联起来
+ * 在onCreate调用attachView，P获取V的索引
+ * 在onCreate中createPresenter，V获取P的索引
  */
 public abstract class BaseFragment<V, T extends BasePresenter<V>> extends Fragment {
 
     /**
      * Fragment当前状态是否可见
      */
-    protected boolean isVisible;
-    protected boolean isPrepared;//表示预加载
+    protected boolean mIsVisible;
+    /**
+     * 表示预加载
+     */
+    protected boolean mIsPrepared;
 
     protected BaseActivity mActivity;
     private Unbinder mBind;
@@ -40,10 +44,10 @@ public abstract class BaseFragment<V, T extends BasePresenter<V>> extends Fragme
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
-            isVisible = true;
+            mIsVisible = true;
             onVisible();
         } else {
-            isVisible = false;
+            mIsVisible = false;
             onInvisible();
         }
     }
@@ -67,7 +71,7 @@ public abstract class BaseFragment<V, T extends BasePresenter<V>> extends Fragme
      * 子类必须重写此方法
      */
     protected void whetherLazyLoad() {
-        if (!isVisible || !isPrepared) {
+        if (!mIsVisible || !mIsPrepared) {
             return;
         }
         lazyLoad();
@@ -102,15 +106,19 @@ public abstract class BaseFragment<V, T extends BasePresenter<V>> extends Fragme
         mActivity = (BaseActivity) context;
     }
 
-    /*
-    *获取宿主Activity
-    */
+    /**
+     * 获取宿主Activity
+     *
+     * @return
+     */
     protected BaseActivity getHoldingActivity() {
         return mActivity;
     }
 
-    /*
-    添加Fragment
+    /**
+     * 添加Fragment
+     *
+     * @param fragment
      */
     protected void addFragment(BaseFragment fragment) {
         if (null != fragment) {
@@ -118,7 +126,9 @@ public abstract class BaseFragment<V, T extends BasePresenter<V>> extends Fragme
         }
     }
 
-    //移除Fragment
+    /**
+     * 移除Fragment
+     */
     protected void removeFragment() {
         getHoldingActivity().removeFragment();
     }
@@ -129,7 +139,7 @@ public abstract class BaseFragment<V, T extends BasePresenter<V>> extends Fragme
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(getLayoutId(), container, false);
         mBind = ButterKnife.bind(this, view);
-        isPrepared = true;
+        mIsPrepared = true;
         whetherLazyLoad();
         initView(view, savedInstanceState);
         return view;
@@ -156,12 +166,18 @@ public abstract class BaseFragment<V, T extends BasePresenter<V>> extends Fragme
         super.onPause();
     }
 
+    /**
+     * 创建Presenter
+     * @return
+     */
     protected abstract T createPresenter();
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mPresenter.detachView();
+        if (mPresenter != null) {
+            mPresenter.detachView();
+        }
         mBind.unbind();
     }
 }

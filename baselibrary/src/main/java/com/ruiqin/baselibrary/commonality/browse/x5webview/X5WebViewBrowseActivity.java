@@ -13,13 +13,13 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 
-import com.blankj.utilcode.util.AppUtils;
 import com.ruiqin.baselibrary.R;
 import com.ruiqin.baselibrary.R2;
 import com.ruiqin.baselibrary.base.BaseActivity;
 import com.ruiqin.baselibrary.base.BasePresenter;
 import com.ruiqin.baselibrary.commonality.browse.x5webview.view.X5WebView;
 import com.ruiqin.baselibrary.constant.NetWorkType;
+import com.ruiqin.baselibrary.util.AppUtils;
 import com.ruiqin.baselibrary.util.LogUtils;
 import com.ruiqin.baselibrary.util.ToastUtils;
 import com.tencent.smtt.sdk.CookieSyncManager;

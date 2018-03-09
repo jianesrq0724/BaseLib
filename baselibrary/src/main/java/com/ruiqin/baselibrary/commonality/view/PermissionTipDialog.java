@@ -11,9 +11,9 @@ import android.support.annotation.StyleRes;
 import android.view.View;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.AppUtils;
 import com.ruiqin.baselibrary.R;
 import com.ruiqin.baselibrary.R2;
+import com.ruiqin.baselibrary.util.AppUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
