@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion 26
@@ -32,6 +33,12 @@ android {
     }
 }
 
+greendao {
+    schemaVersion 1
+    daoPackage 'com.ruiqin.baselib.greendao.gen'
+    targetGenDir 'src/main/java'
+}
+
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:26.1.0'
@@ -41,4 +48,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation project(':baselibrary')
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+
+    compile 'org.greenrobot:greendao:3.2.2'
+
+
 }
